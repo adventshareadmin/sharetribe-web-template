@@ -2,6 +2,7 @@ import * as log from '../util/log';
 import * as purchaseProcess from './transactionProcessPurchase';
 import * as bookingProcess from './transactionProcessBooking';
 import * as inquiryProcess from './transactionProcessInquiry';
+import * as rentalProcess from './transactionProcessRental';
 
 // Supported unit types
 // Note: These are passed to translations/microcopy in certain cases.
@@ -17,6 +18,7 @@ export const INQUIRY = 'inquiry';
 export const PURCHASE_PROCESS_NAME = 'default-purchase';
 export const BOOKING_PROCESS_NAME = 'default-booking';
 export const INQUIRY_PROCESS_NAME = 'default-inquiry';
+export const RENTAL_PROCESS_NAME = 'adventshare-default-rent';
 
 /**
  * A process should export:
@@ -37,6 +39,12 @@ const PROCESSES = [
     alias: `${PURCHASE_PROCESS_NAME}/release-1`,
     process: purchaseProcess,
     unitTypes: [ITEM],
+  },
+  {
+    name: RENTAL_PROCESS_NAME,
+    alias: `${RENTAL_PROCESS_NAME}/2025-15-1`,
+    process: rentalProcess,
+    unitTypes: [DAY],
   },
   {
     name: BOOKING_PROCESS_NAME,
@@ -217,6 +225,8 @@ export const resolveLatestProcessName = processName => {
       return BOOKING_PROCESS_NAME;
     case INQUIRY_PROCESS_NAME:
       return INQUIRY_PROCESS_NAME;
+    case RENTAL_PROCESS_NAME:
+      return RENTAL_PROCESS_NAME;
     default:
       return processName;
   }
@@ -291,7 +301,7 @@ export const isPurchaseProcessAlias = processAlias => {
 export const isBookingProcess = processName => {
   const latestProcessName = resolveLatestProcessName(processName);
   const processInfo = PROCESSES.find(process => process.name === latestProcessName);
-  return [BOOKING_PROCESS_NAME].includes(processInfo?.name);
+  return [BOOKING_PROCESS_NAME, RENTAL_PROCESS_NAME].includes(processInfo?.name);
 };
 
 /**

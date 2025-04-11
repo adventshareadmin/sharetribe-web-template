@@ -281,6 +281,20 @@ export const listingTypes = [
       payoutDetails: true,
     },
   },
+  {
+    listingType: 'daily-rental',
+    label: 'Daily rental',
+    transactionType: {
+      process: 'adventshare-default-rent',
+      alias: 'adventshare-default-rent/2025-15-1',
+      unitType: 'day',
+    },
+    availabilityType: 'oneSeat',
+    defaultListingFields: {
+      location: true,
+      payoutDetails: true,
+    },
+  },
   // // Here are some examples for other listingTypes
   // // TODO: SearchPage does not work well if both booking and product selling are used at the same time
   // {
